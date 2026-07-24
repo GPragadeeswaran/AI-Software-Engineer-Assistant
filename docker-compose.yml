@@ -1,0 +1,24 @@
+version: "3.9"
+
+services:  #every execution happen inside the docker will done here
+
+  postgres:  # service starts here 
+    image: postgres:17 # download 17 version
+
+    container_name: ai_engineer_postgres # instead creating random name we will create meaning full name
+
+    restart: unless-stopped
+
+    environment:
+      POSTGRES_DB: ai_engineer_assistant
+      POSTGRES_USER: postgres
+      POSTGRES_PASSWORD: postgres
+
+    ports:
+      - "5432:5432"  # local device : docker containter
+
+    volumes: # hepls to exist the data in DB even it deletes from container
+      - postgres_data:/var/lib/postgresql/data
+
+volumes:
+  postgres_data:
