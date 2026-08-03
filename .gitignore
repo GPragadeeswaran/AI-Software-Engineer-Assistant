@@ -82,3 +82,5 @@ uploads/temp/
 .idea/
 *.swp
 *.swo
+
+repositories/
