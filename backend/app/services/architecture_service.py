@@ -1,57 +1,28 @@
 from pathlib import Path
+from app.utils.score_detector import ScoreDetector
+from app.utils.repository_scanner import RepositoryScanner
+from app.utils.repository_constants import (
+    IGNORE_FOLDERS,
+    ARCHITECTURE_KEYWORDS
+)
 
 
 class ArchitectureService:
 
     def detect_architecture(self, repository_path: str):
 
-        folders = {
-            folder.name.lower()
-            for folder in Path(repository_path).rglob("*")
+        scores = ScoreDetector.initialize_scores(ARCHITECTURE_KEYWORDS)
 
-            if folder.is_dir()
-        }
+        for folder in RepositoryScanner.scan_directories(repository_path):
 
-        layered_folders = {
-            "api",
-            "routes",
-            "controllers",
-            "services",
-            "schemas",
-            "models",
-            "repositories",
-            "db",
-            "core"
-        }
+            folder_name = folder.name.lower()
 
-        mvc_folders = {
-            "models",
-            "views",
-            "controllers",
-            "templates",
-            "static"
-        }
+            # Compare folder names
+            for architecture, keywords in ARCHITECTURE_KEYWORDS.items():
 
-        clean_folders = {
-            "domain",
-            "application",
-            "infrastructure",
-            "entities",
-            "use_cases",
-            "interfaces"
-        }
+                for keyword in keywords:
 
-        layered_score = len(folders.intersection(layered_folders))
-        mvc_score = len(folders.intersection(mvc_folders))
-        clean_score = len(folders.intersection(clean_folders))
+                    if folder_name == keyword.lower():
+                        scores[architecture] += 1
 
-        if mvc_score >= 3:
-            return "MVC"
-
-        if layered_score >= 4:
-            return "Layered Architecture"
-
-        if clean_score >= 3:
-            return "Clean Architecture"
-
-        return "Monolithic"
+        return ScoreDetector.get_best_match(scores)

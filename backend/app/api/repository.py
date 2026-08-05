@@ -44,7 +44,7 @@ def analyze_repository(request: RepositoryRequest):
     metadata = metadata_service.extract_metadata(repository_path)
     architecture = architecture_service.detect_architecture(repository_path)
     database = database_service.detect_database(repository_path)
-    api_framework = api_service.detect_api(repository_path)
+    api_framework = api_service.detect_api_framework(repository_path)
     authentication = authentication_service.detect_authentication(repository_path)
     testing_framework = testing_service.detect_testing_framework(repository_path)
     docker = docker_service.detect_docker(repository_path)

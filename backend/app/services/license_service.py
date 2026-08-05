@@ -1,4 +1,6 @@
-from pathlib import Path
+from app.utils.score_detector import ScoreDetector
+from app.utils.repository_scanner import RepositoryScanner
+from app.utils.repository_constants import LICENSE_KEYWORDS
 
 
 class LicenseService:
@@ -12,71 +14,12 @@ class LicenseService:
             "copying"
         }
 
-        license_keywords = {
+        scores = ScoreDetector.initialize_scores(LICENSE_KEYWORDS)
 
-            "MIT": [
-                "mit license",
-                "permission is hereby granted"
-            ],
+        for file in RepositoryScanner.scan_files(repository_path):
 
-            "Apache 2.0": [
-                "apache license",
-                "apache license, version 2.0",
-                "version 2.0, january 2004"
-            ],
-
-            "BSD 3-Clause": [
-                "redistribution and use in source and binary forms",
-                "neither the name of",
-                "all rights reserved"
-            ],
-
-            "BSD 2-Clause": [
-                "redistribution and use in source and binary forms",
-                "this list of conditions and the following disclaimer"
-            ],
-
-            "GPL v3": [
-                "gnu general public license",
-                "version 3"
-            ],
-
-            "GPL v2": [
-                "gnu general public license",
-                "version 2"
-            ],
-
-            "LGPL": [
-                "gnu lesser general public license"
-            ],
-
-            "MPL 2.0": [
-                "mozilla public license",
-                "version 2.0"
-            ],
-
-            "ISC": [
-                "isc license"
-            ],
-
-            "Unlicense": [
-                "this is free and unencumbered software released into the public domain"
-            ]
-        }
-
-        scores = {}
-
-        for license_name in license_keywords:
-            scores[license_name] = 0
-
-        for file in Path(repository_path).rglob("*"):
-
-            if not file.is_file():
-                continue
-
-            filename = file.name.lower()
-
-            if filename not in license_files:
+            # Only process license files
+            if file.name.lower() not in license_files:
                 continue
 
             try:
@@ -88,16 +31,11 @@ class LicenseService:
             except Exception:
                 continue
 
-            for license_name, keywords in license_keywords.items():
+            for license_name, keywords in LICENSE_KEYWORDS.items():
 
                 for keyword in keywords:
 
                     if keyword in content:
                         scores[license_name] += 1
 
-        highest_score = max(scores.values())
-
-        if highest_score == 0:
-            return "Unknown"
-
-        return max(scores, key=scores.get)
+        return ScoreDetector.get_best_match(scores)

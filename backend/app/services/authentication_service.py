@@ -1,7 +1,10 @@
 from pathlib import Path
+from app.utils.score_detector import ScoreDetector
+from app.utils.repository_scanner import RepositoryScanner
 from app.utils.repository_constants import (
     IMPORTANT_FILES,
-    IGNORE_FOLDERS
+    IGNORE_FOLDERS,
+    AUTHENTICATION_KEYWORDS
 )
 
 
@@ -9,66 +12,9 @@ class AuthenticationService:
 
     def detect_authentication(self, repository_path: str):
 
-        authentication_keywords = {
+        scores = ScoreDetector.initialize_scores(AUTHENTICATION_KEYWORDS)
 
-            "JWT": [
-                "jwt.encode",
-                "jwt.decode",
-                "pyjwt",
-                "jsonwebtoken",
-                "jjwt",
-                "jwtbearer",
-                "bearer ",
-                "authorization: bearer",
-                "bearer token"
-            ],
-
-            "OAuth": [
-                "oauth2passwordbearer",
-                "oauth2",
-                "oauth",
-                "authlib",
-                "passport-google-oauth20",
-                "spring-security-oauth2",
-                "microsoft.aspnetcore.authentication",
-                "google.oauth",
-                "github.oauth"
-            ],
-
-            "Session": [
-                "flask_login",
-                "login_user",
-                "@login_required",
-                "request.session",
-                "httpsession",
-                "express-session",
-                "cookie-session",
-                "sessionmiddleware"
-            ],
-
-            "API Key": [
-                "x-api-key",
-                "x-auth-token",
-                "api_key",
-                "apikey",
-                "api-token"
-            ]
-        }
-
-        scores = {
-            "JWT": 0,
-            "OAuth": 0,
-            "Session": 0,
-            "API Key": 0
-        }
-
-        for file in Path(repository_path).rglob("*"):
-
-            if any(folder in file.parts for folder in IGNORE_FOLDERS):
-                continue
-
-            if not file.is_file():
-                continue
+        for file in RepositoryScanner.scan_files(repository_path):
 
             if (
                 file.name.lower() not in IMPORTANT_FILES
@@ -86,16 +32,11 @@ class AuthenticationService:
             except Exception:
                 continue
 
-            for auth_type, keywords in authentication_keywords.items():
+            for auth_type, keywords in AUTHENTICATION_KEYWORDS.items():
 
                 for keyword in keywords:
 
                     if keyword.lower() in content:
                         scores[auth_type] += 1
 
-        highest_score = max(scores.values())
-
-        if highest_score == 0:
-            return "Unknown"
-
-        return max(scores, key=scores.get)
+        return ScoreDetector.get_best_match(scores)
