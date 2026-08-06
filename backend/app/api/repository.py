@@ -12,6 +12,9 @@ from app.services.testing_service import TestingService
 from app.services.docker_service import DockerService
 from app.services.cicd_service import CICDService
 from app.services.license_service import LicenseService
+from app.services.summary_service import SummaryService
+from app.services.repository_score_service import RepositoryScoreService
+from app.services.suggestion_service import SuggestionService
 
 
 router = APIRouter(
@@ -32,15 +35,20 @@ docker_service = DockerService()
 cicd_service = CICDService()
 license_service = LicenseService()
 
+summary_service = SummaryService()
+repository_score_service = RepositoryScoreService()
+suggestion_service = SuggestionService()
+
 
 @router.post("/analyze")
 def analyze_repository(request: RepositoryRequest):
 
     repository_path = github_service.clone_repository(
-    str(request.repository_url)
+        str(request.repository_url)
     )
 
     files = github_service.read_repository(repository_path)
+
     metadata = metadata_service.extract_metadata(repository_path)
     architecture = architecture_service.detect_architecture(repository_path)
     database = database_service.detect_database(repository_path)
@@ -50,30 +58,64 @@ def analyze_repository(request: RepositoryRequest):
     docker = docker_service.detect_docker(repository_path)
     cicd = cicd_service.detect_cicd(repository_path)
     license_type = license_service.detect_license(repository_path)
-    
+
+    # Generate AI Summary
+    summary = summary_service.generate_summary(
+        metadata,
+        architecture,
+        api_framework,
+        authentication,
+        testing_framework,
+        cicd,
+        license_type
+    )
+
+    repository_score = repository_score_service.calculate_health_score(
+    metadata,
+    architecture,
+    database,
+    api_framework,
+    authentication,
+    testing_framework,
+    docker,
+    cicd,
+    license_type
+    )
+
+    suggestions = suggestion_service.generate_suggestions(
+    metadata,
+    architecture,
+    database,
+    api_framework,
+    authentication,
+    testing_framework,
+    docker,
+    cicd,
+    license_type
+    )
+
     return {
-    "metadata": metadata,
-    "architecture": architecture,
-    "database": database,
-    "api_framework": api_framework,
-    "authentication": authentication,
-    "testing_framework": testing_framework,
-    "docker": docker,
-    "cicd": cicd,
-    "license": license_type
+        "metadata": metadata,
+        "architecture": architecture,
+        "database": database,
+        "api_framework": api_framework,
+        "authentication": authentication,
+        "testing_framework": testing_framework,
+        "docker": docker,
+        "cicd": cicd,
+        "license": license_type,
+        "summary": summary,
+        "repository_score": repository_score,
+        "suggestions": suggestions
     }
 
-    
-   # chunks = chunk_service.create_chunks(files)
+    # chunks = chunk_service.create_chunks(files)
 
-    all_analysis = []
+    # all_analysis = []
 
-    #for chunk in chunks:
-      #  prompt = ai_service.prepare_chunk(chunk)
-       # analysis = ai_service.analyze_chunk(prompt)
-       # all_analysis.append(analysis)
+    # for chunk in chunks:
+    #     prompt = ai_service.prepare_chunk(chunk)
+    #     analysis = ai_service.analyze_chunk(prompt)
+    #     all_analysis.append(analysis)
 
-    #final_analysis = ai_service.merge_analysis(all_analysis)
-  
-   
-
+    # final_analysis = ai_service.merge_analysis(all_analysis)

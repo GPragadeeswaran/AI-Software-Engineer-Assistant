@@ -319,4 +319,24 @@ LICENSE_KEYWORDS = {
             ]
         }
 
+HEALTH_SCORE_WEIGHTS = {
 
+    "readme": 15,
+
+    "architecture": 15,
+
+    "database": 10,
+
+    "api_framework": 15,
+
+    "authentication": 15,
+
+    "testing": 10,
+
+    "docker": 10,
+
+    "cicd": 10,
+
+    "license": 10
+
+}

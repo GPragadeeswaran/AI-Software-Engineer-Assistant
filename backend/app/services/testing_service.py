@@ -1,6 +1,7 @@
 from pathlib import Path
 from app.utils.score_detector import ScoreDetector
 from app.utils.repository_scanner import RepositoryScanner
+from app.utils.confidence_detector import ConfidenceDetector
 from app.utils.repository_constants import (
     IMPORTANT_FILES,
     TESTING_KEYWORDS
@@ -46,4 +47,7 @@ class TestingService:
                         scores[framework] += 1
 
 
-        return ScoreDetector.get_best_match(scores)
+        return {
+                "name": ScoreDetector.get_best_match(scores),
+                "confidence": ConfidenceDetector.calculate(scores)
+            }
