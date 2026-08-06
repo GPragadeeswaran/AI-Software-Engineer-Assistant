@@ -1,170 +1,221 @@
 # AI Software Engineer Assistant
 
-An AI-powered Software Engineer Assistant that analyzes software repositories, understands project architecture, performs semantic code search, generates documentation, and answers repository-specific questions using Large Language Models (LLMs).
+An AI-powered Software Engineer Assistant that analyzes GitHub repositories, detects software technologies, evaluates repository quality, and generates intelligent summaries and improvement suggestions.
 
 ---
 
 # 📌 Project Overview
 
-Developers often spend significant time understanding unfamiliar codebases before making changes.
+Understanding an unfamiliar codebase is one of the biggest challenges for software developers.
 
-This project aims to simplify that process by providing an AI assistant capable of analyzing a software repository, understanding its structure, retrieving relevant code context, and generating intelligent, evidence-based responses.
+The AI Software Engineer Assistant automates repository analysis by inspecting a GitHub repository and identifying its architecture, framework, authentication mechanism, testing framework, CI/CD pipeline, Docker support, database, license, and other key technologies.
 
-The goal is to improve developer productivity and make software projects easier to understand.
+Instead of manually exploring hundreds of files, developers receive a structured analysis, confidence scores, repository health score, and actionable recommendations.
 
 ---
 
 # 🎯 Problem Statement
 
-Understanding an existing software project can be time-consuming.
+Developers often spend hours understanding existing projects before contributing.
 
-Developers typically need to:
+Common challenges include:
 
-- Explore hundreds of files
-- Understand project architecture
-- Identify dependencies
-- Read documentation (if available)
-- Search for relevant code manually
+- Exploring large codebases
+- Identifying the technology stack
+- Understanding project architecture
+- Finding authentication mechanisms
+- Detecting testing frameworks
+- Verifying CI/CD and Docker support
+- Understanding repository quality
 
-This process becomes even more challenging when documentation is outdated or missing.
+Manual analysis is repetitive and time-consuming.
 
 ---
 
 # 💡 Solution
 
-The AI Software Engineer Assistant analyzes an uploaded repository and builds a knowledge base of the project.
+The AI Software Engineer Assistant automatically analyzes a GitHub repository and provides:
 
-Using this knowledge, the assistant can:
+- Repository metadata
+- Technology detection
+- Confidence scores
+- Repository health score
+- Human-readable project summary
+- Intelligent improvement suggestions
 
-- Explain project architecture
-- Answer repository-specific questions
-- Perform semantic code search
-- Generate project documentation
-- Provide evidence-based responses instead of assumptions
+This helps developers understand a project within seconds.
 
 ---
 
-# ✨ Key Features
+# ✨ Current Features
 
-- Repository Analysis
-- AI-Powered Code Understanding
-- Semantic Code Search
-- Architecture Explanation
-- Documentation Generation
-- Evidence-Based AI Responses
-- Interactive AI Chat
+## Repository Analysis
+
+- GitHub repository cloning
+- Repository metadata extraction
+- Primary programming language detection
+- Project framework detection
+- Package manager detection
+
+## Technology Detection
+
+- Architecture Detection
+- API Framework Detection
+- Authentication Detection
+- Database Detection
+- Testing Framework Detection
+- Docker Detection
+- CI/CD Detection
+- License Detection
+
+## Intelligence Layer
+
+- Confidence Score Calculation
+- Repository Health Score
+- Repository Grade (A–F)
+- Human-readable Repository Summary
+- Improvement Suggestions
+
+---
+
+# 📊 Sample Output
+
+```json
+{
+  "architecture": {
+    "name": "Monolithic",
+    "confidence": 100
+  },
+  "api_framework": {
+    "name": "Flask",
+    "confidence": 90
+  },
+  "repository_score": {
+    "score": 90,
+    "grade": "A"
+  },
+  "suggestions": [
+    "Configure a database for the project.",
+    "Add Docker support."
+  ]
+}
+```
 
 ---
 
 # 🛠️ Tech Stack
 
-### Frontend
+## Backend
 
-- React
-- TypeScript
-- Tailwind CSS
-
-### Backend
-
-- FastAPI
 - Python
+- FastAPI
 
-### Database
+## Database
 
 - PostgreSQL
 
-### Vector Database
+## Version Control
 
-- Qdrant
-
-### AI
-
-- OpenAI API
-- Retrieval-Augmented Generation (RAG)
-
-### DevOps
-
-- Docker
 - Git
 - GitHub
 
+## API Testing
+
+- Swagger UI
+
 ---
 
-# 📁 Project Structure
+# 📁 Backend Structure
 
 ```text
-AI-Software-Engineer-Assistant/
-
-├── backend/
-├── frontend/
-├── docs/
-├── uploads/
-├── tests/
-├── docker/
-├── scripts/
-
-├── README.md
-├── .gitignore
-├── .env.example
-├── docker-compose.yml
-└── LICENSE
+backend/
+│
+├── api/
+├── schemas/
+├── services/
+│   ├── api_service.py
+│   ├── architecture_service.py
+│   ├── authentication_service.py
+│   ├── cicd_service.py
+│   ├── database_service.py
+│   ├── docker_service.py
+│   ├── github_service.py
+│   ├── license_service.py
+│   ├── metadata_service.py
+│   ├── repository_score_service.py
+│   ├── suggestion_service.py
+│   ├── summary_service.py
+│   └── testing_service.py
+│
+├── utils/
+│   ├── confidence_detector.py
+│   ├── repository_constants.py
+│   ├── repository_scanner.py
+│   └── score_detector.py
+│
+└── main.py
 ```
 
--------------
+---
 
-# 🚀 Development Status
+# 🚀 Development Progress
 
-Current Phase:
-
-> Sprint 1 – Project Setup
-
-Completed:
-
-- Repository Created
-- Professional Folder Structure
-- Project Planning
-- Functional Requirements
-- Module Design
-
-Upcoming:
-
-- Backend Setup
-- Frontend Setup
-- Database Setup
-- Docker Configuration
+| Sprint | Status |
+|---------|--------|
+| Sprint 1 – Project Setup | ✅ Completed |
+| Sprint 2 – FastAPI Backend Setup | ✅ Completed |
+| Sprint 3 – GitHub Repository Integration | ✅ Completed |
+| Sprint 4 – Metadata Extraction | ✅ Completed |
+| Sprint 5 – Repository Detection Engine | ✅ Completed |
+| Sprint 6 – Detection Services | ✅ Completed |
+| Sprint 6.5 – Refactoring & Utility Centralization | ✅ Completed |
+| Sprint 7 – Repository Intelligence | ✅ Completed |
 
 ---
 
-# 🗺️ Development Roadmap
+# 🏗️ Repository Intelligence
 
-- Sprint 1 – Project Setup
-- Sprint 2 – Authentication
-- Sprint 3 – Project Management
-- Sprint 4 – Repository Upload
-- Sprint 5 – Repository Scanner
-- Sprint 6 – Evidence Engine
-- Sprint 7 – Knowledge Base
-- Sprint 8 – AI Chat
-- Sprint 9 – Documentation
-- Sprint 10 – Testing & Deployment
+The analyzer currently detects:
+
+- Repository Metadata
+- Software Architecture
+- API Framework
+- Authentication Mechanism
+- Database Technology
+- Testing Framework
+- Docker Support
+- CI/CD Pipeline
+- License Type
+
+Additionally, it provides:
+
+- Confidence Percentage
+- Repository Health Score
+- Repository Grade
+- Repository Summary
+- Improvement Suggestions
 
 ---
 
-# 🔮 Future Enhancements
+# 🗺️ Upcoming Roadmap
 
+- AI Code Explanation
+- Semantic Code Search
+- Repository Question Answering
+- RAG-based Knowledge Base
+- AI Chat Assistant
+- Documentation Generation
 - Multi-Repository Support
-- Team Collaboration
-- Multiple AI Provider Support
 - Cloud Deployment
-- Repository Comparison
-- Code Quality Analysis
 
 ---
 
 # 👨‍💻 Author
 
-**Pragadeeswaran**
+## Pragadeeswaran
 
-Computer Science Engineer | AI & Backend Developer
+Computer Science Engineer
 
-Building practical AI-powered software solutions using Python, FastAPI, React, PostgreSQL, and modern software engineering practices.
+Backend Developer | Python | FastAPI | PostgreSQL
+
+Passionate about building AI-powered developer tools, backend systems, and software engineering solutions using modern Python technologies.
