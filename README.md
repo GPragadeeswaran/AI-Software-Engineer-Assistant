@@ -1,109 +1,257 @@
-# AI Software Engineer Assistant
+# 🤖 AI Software Engineer Assistant
 
-An AI-powered Software Engineer Assistant that analyzes GitHub repositories, detects software technologies, evaluates repository quality, and generates intelligent summaries and improvement suggestions.
+An intelligent backend application that automatically analyzes GitHub repositories and generates a structured software engineering report.
 
----
+Instead of manually exploring hundreds of project files, this application scans a repository, identifies its technology stack, evaluates its architecture, detects development tools, calculates a repository health score, and provides actionable recommendations.
 
-# 📌 Project Overview
-
-Understanding an unfamiliar codebase is one of the biggest challenges for software developers.
-
-The AI Software Engineer Assistant automates repository analysis by inspecting a GitHub repository and identifying its architecture, framework, authentication mechanism, testing framework, CI/CD pipeline, Docker support, database, license, and other key technologies.
-
-Instead of manually exploring hundreds of files, developers receive a structured analysis, confidence scores, repository health score, and actionable recommendations.
+The long-term vision of this project is to build an AI-powered Software Engineering Assistant capable of understanding any software project and helping developers quickly understand unfamiliar codebases.
 
 ---
 
-# 🎯 Problem Statement
+# 🚀 Why This Project?
 
-Developers often spend hours understanding existing projects before contributing.
+Understanding an existing software project is one of the most time-consuming tasks for software developers.
 
-Common challenges include:
+Before writing a single line of code, developers usually need to understand:
 
-- Exploring large codebases
-- Identifying the technology stack
-- Understanding project architecture
-- Finding authentication mechanisms
-- Detecting testing frameworks
-- Verifying CI/CD and Docker support
-- Understanding repository quality
+- What programming language is used?
+- Which framework powers the application?
+- Which architecture pattern does it follow?
+- What authentication mechanism is implemented?
+- Which database is connected?
+- Does the project use Docker?
+- Is CI/CD configured?
+- Which testing framework is used?
+- Is the project properly documented?
 
-Manual analysis is repetitive and time-consuming.
+Answering these questions manually may require reading hundreds of files.
 
----
-
-# 💡 Solution
-
-The AI Software Engineer Assistant automatically analyzes a GitHub repository and provides:
-
-- Repository metadata
-- Technology detection
-- Confidence scores
-- Repository health score
-- Human-readable project summary
-- Intelligent improvement suggestions
-
-This helps developers understand a project within seconds.
+The AI Software Engineer Assistant automates this process.
 
 ---
 
-# ✨ Current Features
+# 🎯 Objective
 
-## Repository Analysis
+The goal of this project is to reduce the time required to understand a software repository by automatically analyzing it and generating an intelligent repository report.
 
-- GitHub repository cloning
-- Repository metadata extraction
-- Primary programming language detection
-- Project framework detection
-- Package manager detection
+Instead of manually reading every file, developers receive:
 
-## Technology Detection
-
-- Architecture Detection
-- API Framework Detection
-- Authentication Detection
-- Database Detection
-- Testing Framework Detection
-- Docker Detection
-- CI/CD Detection
-- License Detection
-
-## Intelligence Layer
-
-- Confidence Score Calculation
+- Repository Metadata
+- Technology Stack Detection
+- Confidence Scores
 - Repository Health Score
-- Repository Grade (A–F)
-- Human-readable Repository Summary
+- Repository Summary
 - Improvement Suggestions
 
 ---
 
-# 📊 Sample Output
+# 🏗️ Current Capabilities
+
+## 1. Repository Cloning
+
+The application accepts a GitHub repository URL and automatically clones the repository for analysis.
+
+---
+
+## 2. Repository Metadata Analysis
+
+Automatically extracts repository information such as:
+
+- Total Files
+- Total Folders
+- Primary Programming Language
+- Project Framework
+- Package Manager
+- README Availability
+
+---
+
+## 3. Architecture Detection
+
+Identifies the software architecture by analyzing repository structure.
+
+Currently supports:
+
+- MVC
+- Layered Architecture
+- Clean Architecture
+- Monolithic Architecture
+- Microservices
+
+Each detection includes a confidence score.
+
+Example:
 
 ```json
 {
-  "architecture": {
     "name": "Monolithic",
     "confidence": 100
-  },
-  "api_framework": {
-    "name": "Flask",
-    "confidence": 90
-  },
-  "repository_score": {
-    "score": 90,
-    "grade": "A"
-  },
-  "suggestions": [
-    "Configure a database for the project.",
-    "Add Docker support."
-  ]
 }
 ```
 
 ---
 
-# 🛠️ Tech Stack
+## 4. API Framework Detection
+
+Automatically detects backend frameworks including:
+
+- FastAPI
+- Flask
+- Django
+- Express.js
+- Spring Boot
+- ASP.NET Core
+
+Each result includes a confidence percentage.
+
+---
+
+## 5. Authentication Detection
+
+Detects authentication mechanisms such as:
+
+- JWT
+- OAuth
+- Session Authentication
+- API Key Authentication
+
+---
+
+## 6. Database Detection
+
+Identifies supported databases including:
+
+- PostgreSQL
+- MySQL
+- SQLite
+- MongoDB
+- Redis
+
+---
+
+## 7. Testing Framework Detection
+
+Detects testing technologies including:
+
+- pytest
+- unittest
+- JUnit
+- TestNG
+- Jest
+- Mocha
+- NUnit
+- xUnit
+
+---
+
+## 8. Docker Detection
+
+Checks whether Docker support is configured within the repository.
+
+---
+
+## 9. CI/CD Detection
+
+Automatically detects CI/CD pipelines including:
+
+- GitHub Actions
+
+The detection engine is designed to support additional CI/CD platforms in future versions.
+
+---
+
+## 10. License Detection
+
+Detects popular open-source licenses including:
+
+- MIT
+- Apache 2.0
+- GPL
+- BSD
+- MPL
+- ISC
+- Unlicense
+
+---
+
+# 🧠 Repository Intelligence
+
+Beyond technology detection, the application provides intelligent analysis.
+
+---
+
+## Confidence Score Engine
+
+Every detected technology includes a confidence percentage.
+
+This helps users understand how certain the analyzer is before trusting a detection.
+
+Example:
+
+```json
+{
+    "framework": {
+        "name": "Flask",
+        "confidence": 90
+    }
+}
+```
+
+---
+
+## Repository Summary
+
+Automatically generates a readable summary describing the repository.
+
+Example:
+
+> This repository is a Python project built using Flask. It follows a Monolithic architecture. It uses Session authentication. Testing is implemented using pytest. CI/CD is configured with GitHub Actions. The project is licensed under BSD 3-Clause.
+
+---
+
+## Repository Health Score
+
+The application evaluates repository quality using multiple engineering metrics.
+
+Current evaluation considers:
+
+- README Availability
+- Software Architecture
+- API Framework
+- Authentication
+- Database
+- Testing
+- Docker
+- CI/CD
+- License
+
+Example:
+
+```json
+{
+    "score": 90,
+    "grade": "A"
+}
+```
+
+---
+
+## Improvement Suggestions
+
+Based on the repository analysis, the application recommends practical improvements.
+
+Example:
+
+```json
+[
+    "Configure a database for the project.",
+    "Add Docker support."
+]
+```
+
+---
+
+# 🛠️ Technology Stack
 
 ## Backend
 
@@ -114,18 +262,18 @@ This helps developers understand a project within seconds.
 
 - PostgreSQL
 
+## API Testing
+
+- Swagger UI
+
 ## Version Control
 
 - Git
 - GitHub
 
-## API Testing
-
-- Swagger UI
-
 ---
 
-# 📁 Backend Structure
+# 📁 Project Structure
 
 ```text
 backend/
@@ -158,54 +306,64 @@ backend/
 
 ---
 
+# 📊 Sample API Response
+
+```json
+{
+    "metadata": {
+        "primary_language": "Python",
+        "framework": "Flask"
+    },
+    "architecture": {
+        "name": "Monolithic",
+        "confidence": 100
+    },
+    "api_framework": {
+        "name": "Flask",
+        "confidence": 90
+    },
+    "repository_score": {
+        "score": 90,
+        "grade": "A"
+    },
+    "suggestions": [
+        "Configure a database for the project.",
+        "Add Docker support."
+    ]
+}
+```
+
+---
+
 # 🚀 Development Progress
 
-| Sprint | Status |
-|---------|--------|
-| Sprint 1 – Project Setup | ✅ Completed |
-| Sprint 2 – FastAPI Backend Setup | ✅ Completed |
-| Sprint 3 – GitHub Repository Integration | ✅ Completed |
-| Sprint 4 – Metadata Extraction | ✅ Completed |
-| Sprint 5 – Repository Detection Engine | ✅ Completed |
-| Sprint 6 – Detection Services | ✅ Completed |
-| Sprint 6.5 – Refactoring & Utility Centralization | ✅ Completed |
-| Sprint 7 – Repository Intelligence | ✅ Completed |
+| Sprint | Description | Status |
+|---------|-------------|--------|
+| Sprint 1 | Project Planning & Setup | ✅ |
+| Sprint 2 | FastAPI Backend | ✅ |
+| Sprint 3 | GitHub Repository Integration | ✅ |
+| Sprint 4 | Metadata Extraction | ✅ |
+| Sprint 5 | Technology Detection Engine | ✅ |
+| Sprint 6 | Detection Services & Refactoring | ✅ |
+| Sprint 7 | Repository Intelligence | ✅ |
+| Sprint 8 | AI Repository Understanding | 🚧 |
+| Sprint 9 | Semantic Code Search | ⏳ |
+| Sprint 10 | RAG Knowledge Base | ⏳ |
+| Sprint 11 | AI Chat Assistant | ⏳ |
+| Sprint 12 | Deployment & Optimization | ⏳ |
 
 ---
 
-# 🏗️ Repository Intelligence
+# 🔮 Future Enhancements
 
-The analyzer currently detects:
-
-- Repository Metadata
-- Software Architecture
-- API Framework
-- Authentication Mechanism
-- Database Technology
-- Testing Framework
-- Docker Support
-- CI/CD Pipeline
-- License Type
-
-Additionally, it provides:
-
-- Confidence Percentage
-- Repository Health Score
-- Repository Grade
-- Repository Summary
-- Improvement Suggestions
-
----
-
-# 🗺️ Upcoming Roadmap
-
-- AI Code Explanation
+- Large Language Model (LLM) Integration
 - Semantic Code Search
-- Repository Question Answering
-- RAG-based Knowledge Base
-- AI Chat Assistant
-- Documentation Generation
-- Multi-Repository Support
+- Retrieval-Augmented Generation (RAG)
+- AI Repository Chat
+- Automatic Documentation Generation
+- Code Quality Analysis
+- Security Analysis
+- Multi-Repository Comparison
 - Cloud Deployment
 
 ---
@@ -214,8 +372,12 @@ Additionally, it provides:
 
 ## Pragadeeswaran
 
-Computer Science Engineer
+**Backend Developer | Python | FastAPI | PostgreSQL**
 
-Backend Developer | Python | FastAPI | PostgreSQL
+Passionate about building intelligent developer tools, backend systems, and AI-powered software engineering solutions.
 
-Passionate about building AI-powered developer tools, backend systems, and software engineering solutions using modern Python technologies.
+---
+
+## ⭐ Support
+
+If you found this project useful, consider giving it a ⭐ on GitHub.
