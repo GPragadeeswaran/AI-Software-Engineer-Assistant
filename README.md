@@ -381,3 +381,17 @@ Passionate about building intelligent developer tools, backend systems, and AI-p
 ## ⭐ Support
 
 If you found this project useful, consider giving it a ⭐ on GitHub.
+
+
+## 🎥 Demo
+
+> Watch the AI Software Engineer Assistant in action.
+
+https://github.com/user-attachments/assets/2f225a74-821e-4ef2-814a-ef801ea7be33
+
+
+
+
+
+
+
