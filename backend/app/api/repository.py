@@ -15,6 +15,9 @@ from app.services.license_service import LicenseService
 from app.services.summary_service import SummaryService
 from app.services.repository_score_service import RepositoryScoreService
 from app.services.suggestion_service import SuggestionService
+from app.services.code_quality_service import CodeQualityService
+from app.services.dependency_service import DependencyService
+from app.services.security_service import SecurityService
 
 
 router = APIRouter(
@@ -38,6 +41,9 @@ license_service = LicenseService()
 summary_service = SummaryService()
 repository_score_service = RepositoryScoreService()
 suggestion_service = SuggestionService()
+code_quality_service = CodeQualityService()
+dependency_service = DependencyService()
+security_service = SecurityService()
 
 
 @router.post("/analyze")
@@ -58,6 +64,9 @@ def analyze_repository(request: RepositoryRequest):
     docker = docker_service.detect_docker(repository_path)
     cicd = cicd_service.detect_cicd(repository_path)
     license_type = license_service.detect_license(repository_path)
+    code_quality = code_quality_service.detect_code_quality(repository_path)
+    dependencies = dependency_service.detect_dependencies(repository_path)
+    security = security_service.detect_security_issues(repository_path)
 
     # Generate AI Summary
     summary = summary_service.generate_summary(
@@ -106,7 +115,10 @@ def analyze_repository(request: RepositoryRequest):
         "license": license_type,
         "summary": summary,
         "repository_score": repository_score,
-        "suggestions": suggestions
+        "suggestions": suggestions,
+        "code_quality": code_quality,
+        "dependencies": dependencies,
+        "security": security,
     }
 
     # chunks = chunk_service.create_chunks(files)
