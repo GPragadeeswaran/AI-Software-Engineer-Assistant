@@ -18,6 +18,7 @@ from app.services.suggestion_service import SuggestionService
 from app.services.code_quality_service import CodeQualityService
 from app.services.dependency_service import DependencyService
 from app.services.security_service import SecurityService
+from app.services.repo_advisor import RepoAdvisor
 
 
 router = APIRouter(
@@ -44,6 +45,7 @@ suggestion_service = SuggestionService()
 code_quality_service = CodeQualityService()
 dependency_service = DependencyService()
 security_service = SecurityService()
+advisor = RepoAdvisor()
 
 
 @router.post("/analyze")
@@ -67,6 +69,7 @@ def analyze_repository(request: RepositoryRequest):
     code_quality = code_quality_service.detect_code_quality(repository_path)
     dependencies = dependency_service.detect_dependencies(repository_path)
     security = security_service.detect_security_issues(repository_path)
+   
 
     # Generate AI Summary
     summary = summary_service.generate_summary(
@@ -103,6 +106,16 @@ def analyze_repository(request: RepositoryRequest):
     license_type
     )
 
+    #AI advisor
+
+    recommendations = advisor.generate_recommendations(
+    docker=docker,
+    database=database,
+    dependencies=dependencies,
+    security=security,
+    code_quality=code_quality
+    )
+
     return {
         "metadata": metadata,
         "architecture": architecture,
@@ -119,6 +132,7 @@ def analyze_repository(request: RepositoryRequest):
         "code_quality": code_quality,
         "dependencies": dependencies,
         "security": security,
+        "recommendations": recommendations,
     }
 
     # chunks = chunk_service.create_chunks(files)
