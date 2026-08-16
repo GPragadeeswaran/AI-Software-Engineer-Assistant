@@ -19,6 +19,7 @@ from app.services.code_quality_service import CodeQualityService
 from app.services.dependency_service import DependencyService
 from app.services.security_service import SecurityService
 from app.services.repo_advisor import RepoAdvisor
+from app.services.repository_insight_service import RepositoryInsightService
 
 
 router = APIRouter(
@@ -46,6 +47,7 @@ code_quality_service = CodeQualityService()
 dependency_service = DependencyService()
 security_service = SecurityService()
 advisor = RepoAdvisor()
+repository_insight_service = RepositoryInsightService()
 
 
 @router.post("/analyze")
@@ -69,6 +71,7 @@ def analyze_repository(request: RepositoryRequest):
     code_quality = code_quality_service.detect_code_quality(repository_path)
     dependencies = dependency_service.detect_dependencies(repository_path)
     security = security_service.detect_security_issues(repository_path)
+    
    
 
     # Generate AI Summary
@@ -106,6 +109,21 @@ def analyze_repository(request: RepositoryRequest):
     license_type
     )
 
+    analysis_result = {
+    "metadata": metadata,
+    "architecture": architecture,
+    "database": database,
+    "api_framework": api_framework,
+    "authentication": authentication,
+    "testing_framework": testing_framework,
+    "docker": docker,
+    "cicd": cicd,
+    "license": license_type,
+    "code_quality": code_quality,
+    "dependencies": dependencies,
+    "security": security
+     }
+
     #AI advisor
 
     recommendations = advisor.generate_recommendations(
@@ -115,6 +133,8 @@ def analyze_repository(request: RepositoryRequest):
     security=security,
     code_quality=code_quality
     )
+
+    insights = repository_insight_service.generate_insights(analysis_result)
 
     return {
         "metadata": metadata,
@@ -133,6 +153,7 @@ def analyze_repository(request: RepositoryRequest):
         "dependencies": dependencies,
         "security": security,
         "recommendations": recommendations,
+        "insights": insights
     }
 
     # chunks = chunk_service.create_chunks(files)
